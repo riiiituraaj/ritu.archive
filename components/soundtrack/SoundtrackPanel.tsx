@@ -85,7 +85,7 @@ export default function SoundtrackPanel() {
         aria-label={hasAudio ? (isPlaying ? `Pause ${track?.title}` : `Play ${track?.title}`) : "Open 0.1 flaws and all album"}
         aria-pressed={hasAudio ? isPlaying : undefined}
       >
-        <img className="reel-play-icon soundtrack-play-icon" src="/icons/play.png" alt="" />
+        <img className="reel-play-icon soundtrack-play-icon" src="/icons/play.png" alt="" loading="lazy" decoding="async" />
       </button>
 
       {hasAudio && (

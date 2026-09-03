@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   openGraph: { title: "Ritu Raj Bora | Product Designer & Frontend Developer", description: "Design × Code × Visual Storytelling × Motion", type: "website", url: "https://riturajbora.com" },
   twitter: { card: "summary_large_image", title: "Ritu Raj Bora | Product Designer & Frontend Developer", description: "Design × Code × Visual Storytelling × Motion" },
 };
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#02050b" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en" suppressHydrationWarning><body className={instrumentSerif.variable}>{children}</body></html>;

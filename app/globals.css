@@ -1,5 +1,5 @@
 :root{--void:#02050b;--night:#050a14;--deep:#07111f;--blue:#0c1d33;--ink:#f2f4f7;--soft:#dce3eb;--muted:#8f9eae;--dim:#738295;--accent:#5d8fcb;--line:rgba(220,227,235,.16);--dark-line:rgba(2,5,11,.18);--sans:Arial,"Helvetica Neue",sans-serif;--display:Georgia,"Times New Roman",serif;--italic-display:var(--instrument-serif),Georgia,"Times New Roman",serif;--mono:"Courier New",monospace;--gutter:clamp(1.25rem,6vw,7.5rem);--ease:cubic-bezier(.2,.7,.16,1)}
- *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;overflow-x:hidden;background:var(--void);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}body:before{content:"";position:fixed;z-index:-2;inset:0;background:radial-gradient(ellipse at 76% 0%,rgba(39,76,120,.25),transparent 34%),linear-gradient(130deg,var(--void),var(--deep) 57%,var(--night));pointer-events:none;transition:background 1.8s var(--ease)}body:after{content:"";position:fixed;z-index:50;inset:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}a{color:inherit;text-decoration:none}button{color:inherit;font:inherit;cursor:pointer}::selection{background:var(--accent);color:var(--void)}
+ *{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;overflow-x:hidden;background:var(--void);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}body:before{content:"";position:fixed;z-index:-2;inset:0;background:radial-gradient(ellipse at 76% 0%,rgba(39,76,120,.25),transparent 34%),linear-gradient(130deg,var(--void),var(--deep) 57%,var(--night));pointer-events:none;transition:background 1.8s var(--ease)}body:after{content:"";position:fixed;z-index:50;inset:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}a{color:inherit;text-decoration:none}button{color:inherit;font:inherit;cursor:pointer}::selection{background:var(--accent);color:var(--void)}
 .label,.visual-meta,.visual-time,.project-number,.archive-note,.year-mark,.reel-status{font:500 .59rem/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase}.label{margin:0 0 1.4rem;color:var(--dim)}h2,h3,p{margin-top:0}.chapter,.chapter-light,.statement{position:relative;padding:clamp(6rem,12vw,12rem) var(--gutter)}.chapter-light,.statement{color:var(--void);background:#e8eaed}
 .nav-shell{position:fixed;z-index:40;top:1.2rem;left:50%;display:flex;align-items:center;width:min(880px,calc(100% - 2.5rem));height:52px;padding:0 .55rem 0 1.2rem;transform:translateX(-50%);border:1px solid rgba(220,227,235,.18);background:rgba(2,5,11,.64);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .4s,border-color .4s}.nav-shell:hover{background:rgba(7,17,31,.9);border-color:rgba(220,227,235,.3)}.wordmark{font-size:.9rem;font-weight:700;letter-spacing:.1em}.wordmark span{color:var(--accent)}.nav-links{position:absolute;left:50%;display:flex;gap:1.8rem;transform:translateX(-50%);font:500 .58rem var(--mono);letter-spacing:.1em;text-transform:uppercase}.nav-links a{color:var(--muted);transition:color .25s}.nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}.nav-actions{display:flex;gap:.4rem;margin-left:auto}.mode-toggle,.menu-toggle{border:0;background:transparent;padding:.5rem .7rem;color:var(--muted);font:500 .57rem var(--mono);letter-spacing:.08em}.mode-toggle:hover,.mode-toggle:focus-visible,.menu-toggle:hover,.menu-toggle:focus-visible{color:var(--ink)}.menu-toggle{display:none}
 .cinematic-intro{height:220vh}.intro-stage{position:sticky;top:0;height:100vh;overflow:hidden;isolation:isolate;background:var(--void)}.intro-background{position:absolute;inset:-4%;z-index:-1;background:linear-gradient(90deg,rgba(2,5,11,.95),rgba(2,5,11,.5) 50%,rgba(2,5,11,.12)),url('/images/midnight-dreamscape.png') center/cover;transform:scale(1.06);transition:transform 1.4s var(--ease)}.intro-background:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--void) 0,transparent 30%,rgba(2,5,11,.25))}.intro-stage:before{content:"";position:absolute;z-index:0;inset:-20%;background:radial-gradient(ellipse at 73% 28%,rgba(93,143,203,.18),transparent 28%),linear-gradient(110deg,transparent 42%,rgba(93,143,203,.08) 53%,transparent 64%);filter:blur(35px);animation:light-drift 22s ease-in-out infinite alternate;pointer-events:none}.intro-micro,.intro-footer{position:absolute;z-index:3;left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;color:#9aa8b8;font:500 .58rem var(--mono);letter-spacing:.1em;text-transform:uppercase}.intro-micro{top:7.5rem}.intro-footer{bottom:2rem}.intro-footer b{color:var(--accent);font-size:1rem}.intro-name{position:absolute;z-index:2;top:22vh;left:var(--gutter);margin:0;color:var(--ink);font:400 clamp(6rem,15.5vw,16rem)/.76 var(--display);letter-spacing:-.035em}.intro-name span{display:block;clip-path:inset(0 0 0 0)}.intro-name span:nth-child(1){padding-left:1vw}.intro-name span:nth-child(2){padding-left:15vw;color:var(--soft);font-style:italic}.intro-name span:nth-child(3){padding-left:3vw;color:var(--accent);font-size:1.12em}.intro-identity{position:absolute;z-index:3;right:var(--gutter);bottom:14vh;width:min(320px,28vw)}.intro-identity p{color:var(--accent);font:500 .58rem var(--mono);letter-spacing:.1em}.intro-identity strong{display:block;font:600 clamp(2.2rem,3.7vw,4.2rem)/.9 var(--sans);letter-spacing:-.045em}.intro-identity em{font-family:var(--display);font-weight:400}.intro-identity>div{display:flex;flex-wrap:wrap;gap:.55rem .9rem;margin-top:1.4rem;color:#9eabba;font:500 .55rem var(--mono);text-transform:uppercase}.intro-identity>div span+span:before{content:"/";margin-right:.9rem;color:#526d91}
@@ -73,3 +73,177 @@
 .soundtrack-track{position:absolute;z-index:2;left:6%;bottom:24%;margin:0;max-width:70%;color:#c7d2dd;font:500 .58rem/1.7 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .soundtrack-progress{position:absolute;z-index:2;right:1.2rem;bottom:1.2rem;left:1.2rem;top:auto!important;height:1px;background:rgba(220,227,235,.25)}
 .soundtrack-progress i{display:block;height:100%;background:var(--accent)}
+/* ============================================================
+   RESPONSIVE ENGINEERING LAYER — adaptive composition system
+   Goal: same cinematic identity, deliberately composed 320px→4K.
+   Placed last so it wins over earlier brittle rules. No redesign.
+   ============================================================ */
+:root{
+  --content-max:112.5rem;
+  --nav-h:3rem;
+  --sat:env(safe-area-inset-top,0px);
+  --sar:env(safe-area-inset-right,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
+}
+html,body{max-width:100%;overflow-x:clip}
+body{overflow-x:clip;text-rendering:optimizeLegibility}
+img,video,svg{max-width:100%}
+img{height:auto}
+h1,h2,h3,p,em{overflow-wrap:break-word;word-break:normal;min-width:0}
+h1,h2{ text-wrap:balance }
+/* Centered breathing room on ultrawide / 4K / TV: keep full-bleed
+   backgrounds, constrain the actual composition instead. */
+.chapter,.chapter-light,.statement,.contact{scroll-margin-top:5rem}
+@media(min-width:80rem){
+  .chapter,.chapter-light,.statement,.contact{padding-inline:max(var(--gutter),calc((100vw - var(--content-max))/2 + var(--gutter)))}
+  .project-stack{max-width:var(--content-max);margin-inline:auto;width:100%}
+  .timeline,.award-list,.detail-list,.leadership{max-width:min(59.375rem,100%)}
+}
+/* ---- Hero: respond to width AND height, never brittle 100vh ---- */
+.intro-stage{height:100vh;height:100svh;height:100dvh;min-height:34rem;max-height:68rem;overflow:clip}
+@supports(height:100dvh){.intro-stage{height:100dvh}}
+/* Fluid hero type that cannot clip at 320px or explode at 4K */
+.intro-name{
+  width:min(58vw,52rem);max-width:calc(100vw - var(--gutter)*2);
+  font-size:clamp(3.4rem,13.5vw,15rem);
+  line-height:.8;letter-spacing:-.025em;
+}
+.intro-name span{width:auto;max-width:100%;overflow-wrap:break-word}
+.intro-name span:nth-child(3){font-size:1.06em}
+/* Glass panel always inside viewport */
+.intro-glass-plane{
+  width:min(25rem,27vw);max-width:calc(100vw - var(--gutter)*2);
+  height:auto;min-height:12rem;
+}
+/* Very short screens: compress vertical composition, keep CTA visible */@media(max-height:38rem){
+  .intro-name{top:16vh;font-size:clamp(3rem,11vh,6rem)}
+  .intro-glass-plane{top:auto;bottom:16vh;min-height:0;height:auto;padding:1rem}
+  .intro-micro{top:4.5rem}
+  .intro-footer{bottom:5.5rem}
+}
+/* Tall screens: let it breathe, don't stretch imagery */
+@media(min-height:60rem) and (min-width:60rem){
+  .intro-stage{max-height:none}
+  .intro-name{top:24vh}
+}
+/* ---- Section type: continuous fluid, safe at 320px ---- */
+.statement h2,.chapter h2,.chapter-light h2,.contact h2{
+  font-size:clamp(2.9rem,3.2rem + 5vw,8.5rem);
+  line-height:.88;max-width:100%;
+}
+@media(max-width:36.25rem){
+  .statement h2,.chapter h2,.chapter-light h2{font-size:clamp(2.75rem,14.5vw,4.5rem)}
+  .contact h2{font-size:clamp(3rem,17vw,5.5rem)}
+  .timeline-item h3{font-size:clamp(1.7rem,7.5vw,2.35rem)}
+  .award h3{font-size:clamp(1.4rem,6.4vw,1.95rem)}
+  .project-copy h3{font-size:clamp(2.1rem,10vw,3.1rem)}
+}
+/* ---- Containers / grids collapse gracefully ----
+   (Desktop values only: earlier max-width rules own tablet/phone.) */
+.statement>p,.reel-copy p,.project-copy p,.timeline-item p,.detail-item p{max-width:min(38ch,100%)}
+@media(min-width:56.26rem){
+  .project{grid-template-columns:1.18fr .82fr;align-items:stretch}
+  .project-visual{aspect-ratio:4/3;min-height:clamp(20rem,34vw,38rem);align-self:stretch}
+  .project-copy{align-items:center;padding:clamp(2.5rem,5vw,5rem) clamp(1.5rem,4vw,4rem)}
+  .reel-frame{min-height:clamp(22rem,38vw + 10rem,44rem)}
+}
+.project-visual{aspect-ratio:4/3;align-self:stretch}
+.project-thumbnail{object-position:50% 42%}
+.reel-frame{background-position:50% 40%}
+@media(min-width:36.26rem) and (max-width:64rem){
+  .project-visual{min-height:clamp(18rem,58vw,32rem)}
+  .project-thumbnail{object-position:50% 35%}
+}
+@media(max-width:36.25rem){
+  .project-visual{min-height:0;aspect-ratio:4/3.4}
+  .project-thumbnail{inset:9% 9%;width:82%;height:82%;object-position:50% 30%}
+}
+/* Reel keeps its tuned heights (base 44rem, 65vw tablet, 92vw phone). */
+.soundtrack-frame{background-position:50% 35%}
+@media(max-width:36.25rem){
+  .reel-frame{min-height:clamp(20rem,110vw,28rem)}
+  .soundtrack-track{bottom:30%;font-size:.52rem}
+}
+/* Gallery: absolute collage on desktop, intentional grid on mobile
+   so nothing overlaps / crops the subject. */
+@media(max-width:36.25rem){
+  .gallery{overflow:clip;min-height:0}
+  .gallery .poster-wall{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;height:auto;min-height:0;margin-top:2rem;overflow:visible}
+  .gallery .poster{position:relative;inset:auto!important;width:auto!important;height:auto!important;transform:none!important;aspect-ratio:3/4;overflow:hidden;margin:0}
+  .gallery .poster-a,.gallery .poster-b,.gallery .poster-c{inset:auto!important;transform:none!important}
+  .gallery .poster-b{aspect-ratio:3/4.4;grid-row:span 2}
+  .gallery .poster:hover{transform:scale(1.02)!important}
+  .poster-image{object-position:50% 30%}
+}
+/* Tablet gets its own 2-col rhythm, not oversized-mobile */
+@media(min-width:36.26rem) and (max-width:64rem){
+  .skill-cloud{grid-template-columns:1fr 1fr}
+  .discipline-list{grid-template-columns:1fr 1fr}
+  .poster-wall{height:62vw}
+}
+/* Toolkit skill groups respond to their own width */
+.skill-group{container-type:inline-size;min-width:0}
+@container(max-width:30rem){.skill-cloud{grid-template-columns:1fr}.skill-cloud span:nth-child(odd){margin-right:0}}
+/* ---- Bottom floating nav: never escapes viewport ---- */
+.nav-shell{
+  left:50%;right:auto;
+  width:min(47.5rem,calc(100vw - 1.5rem - var(--sal) - var(--sar)));
+  margin-left:calc(var(--sal)/2 - var(--sar)/2);
+  padding-inline:1.15rem;overflow:hidden;
+}
+.nav-links a,.mode-toggle,.menu-toggle{min-height:2.75rem;display:inline-flex;align-items:center}
+@media(max-width:56.25rem){
+  .nav-shell .nav-links{gap:1rem}
+  .nav-shell.is-open{height:auto;min-height:3rem;max-height:calc(100dvh - 2rem);overflow:auto}
+}
+@media(max-width:36.25rem){
+  .nav-shell{width:calc(100vw - 1.25rem - var(--sal) - var(--sar))}
+  .nav-shell .wordmark{font-size:.78rem;white-space:nowrap}
+  .nav-links{font-size:.58rem}
+}
+/* Respect notches everywhere fixed content lives */
+.contact{padding-bottom:calc(clamp(6rem,12vw,12rem) + var(--sab))}
+/* ---- Motion safety: no horizontal scroll from cinematic scale ---- */
+.cinematic-intro,.intro-stage,.gallery,.contact,.motion-reel{overflow:clip}
+.intro-name,.intro-glass-plane{will-change:transform,opacity}
+/* Images keep subjects visible, never stretched */
+.project-thumbnail,.poster-image,.video-tile-video{object-fit:cover}
+.video-tile-video{object-position:50% 40%}
+/* Prevent layout jump while media load */
+.project-visual,.poster,.reel-frame{content-visibility:auto}
+/* Touch: hover-only affordances get tap equivalents (video plays on tap via link) */
+@media(hover:none),(pointer:coarse){
+  .project:hover .project-thumbnail{transform:rotate(-2deg)}
+  .poster:hover{transform:none}
+  .reel-frame{filter:saturate(.85)}
+  .nav-shell:hover{background:rgba(2,5,11,.64)}
+}
+/* Focus stays visible on every viewport */
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Reduced motion already handled; ensure content present */
+@media(prefers-reduced-motion:reduce){
+  .cinematic-intro{height:100vh;height:100svh}
+  .intro-stage{height:100vh;height:100svh;max-height:none}
+}
+/* Glass panel width by breakpoint: wide enough for its copy at every size. */
+@media(max-width:64rem){
+  .intro-glass-plane{width:min(20rem,44vw)}
+}
+@media(max-width:36.25rem){
+  .intro-glass-plane{width:min(21rem,calc(100vw - var(--gutter)*2));min-height:0}
+  .panel-copy p{max-width:100%;font-size:.55rem}
+  .panel-copy strong{font-size:clamp(1.7rem,8.5vw,2.1rem);line-height:1}
+  /* Cinematic frames sit straight on phones so the subject is never sliced. */
+  .project-visual:has(.project-thumbnail):before{transform:none}
+  .project-thumbnail{transform:none}
+  .project:hover .project-thumbnail{transform:none}
+  .visual-code:after{width:min(25rem,110vw)}
+  /* Decorative vertical caption would collide with body copy. */
+  .side-caption{display:none}
+  .statement>p{max-width:100%}
+  /* Tighter award rows: number, content, arrow share one rhythm. */
+  .award{grid-template-columns:2.2rem minmax(0,1fr) 1.2rem;gap:.8rem}
+  /* Long contact handles wrap instead of squeezing the arrow. */
+  .contact-links a{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+}

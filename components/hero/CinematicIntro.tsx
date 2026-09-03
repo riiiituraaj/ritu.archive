@@ -12,23 +12,37 @@ export default function CinematicIntro() {
     const scene = sceneRef.current;
     if (!scene || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    // Viewport-aware intensity: same identity, full cinematic fly-through on
+    // every screen (mid-transition zoom inside the clipped stage is the shot,
+    // not a cropping bug — resting states stay within the viewport).
+    const viewport = () => ({ w: window.innerWidth, h: window.innerHeight });
+    const intensity = () => {
+      const { w } = viewport();
+      if (w <= 580) return { peak: 2.1, mid: 1.28, drift: -8, glassX: -6, glassScale: 1.06 };
+      if (w <= 900) return { peak: 2.3, mid: 1.3, drift: -10, glassX: -10, glassScale: 1.1 };
+      return { peak: 2.8, mid: 1.35, drift: -12, glassX: -15, glassScale: 1.16 };
+    };
     const context = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       const timeline = gsap.timeline({
-        scrollTrigger: { trigger: scene, start: "top top", end: "bottom bottom", scrub: 1.1, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: scene, start: "top top", end: "bottom bottom", scrub: 1.5, invalidateOnRefresh: true },
       });
 
       // Keep the identity panel available if motion is interrupted during hydration.
       gsap.set(".intro-name span", { autoAlpha: 0 });
-      gsap.set(".intro-name span", { yPercent: 12, filter: "blur(4px)" });
-      gsap.set(".intro-glass-plane", { xPercent: 16, yPercent: 3, rotateY: -8, rotateZ: -2, scale: .86 });
+      gsap.set(".intro-name span", { yPercent: 16, filter: "blur(6px)" });
+      gsap.set(".intro-glass-plane", { autoAlpha: 0, xPercent: 16, yPercent: 3, rotateY: -8, rotateZ: -2, scale: .86 });
 
-      intro.to(".intro-background", { autoAlpha: .48, duration: 1.5, ease: "power2.inOut" })
-        .to(".intro-name span:nth-child(1)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1 })
-        .to(".intro-name span:nth-child(2)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1 }, "-=.65")
-        .to(".intro-name span:nth-child(3)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.1 }, "-=.65")
-        .to(".intro-glass-plane", { autoAlpha: .9, xPercent: 0, yPercent: 0, rotateY: -2, rotateZ: -1, scale: 1, duration: 1.4, ease: "power2.out" }, "-=.35")
-        .fromTo(".intro-glass-plane .panel-copy", { clipPath: "inset(0 0 100%)" }, { clipPath: "inset(0)", duration: 1.1, ease: "power3.out" }, "-=.9");
+      intro.to(".intro-background", { autoAlpha: .48, duration: 2.2, ease: "power2.inOut" })
+        .to(".intro-name span:nth-child(1)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.5 })
+        .to(".intro-name span:nth-child(2)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.5 }, "-=.8")
+        .to(".intro-name span:nth-child(3)", { autoAlpha: 1, yPercent: 0, filter: "blur(0px)", duration: 1.5 }, "-=.8")
+        .addLabel("glassIn", "-=1.0")
+        // Glass leads; the full copy block follows a beat later as ONE unit.
+        .to(".intro-glass-plane", { autoAlpha: .92, xPercent: 0, yPercent: 0, rotateY: -2, rotateZ: -1, scale: 1, duration: 1.15, ease: "expo.out" }, "glassIn")
+        .fromTo(".intro-glass-plane .panel-copy", { clipPath: "inset(0 0 100% 0)", autoAlpha: 0, y: 14 }, { clipPath: "inset(0 0 0% 0)", autoAlpha: 1, y: 0, duration: .95, ease: "expo.out" }, "glassIn+=0.22")
+        .fromTo([".intro-micro", ".intro-footer"], { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2, ease: "power2.out" }, "glassIn");
 
       timeline
         .to(".intro-stage", { "--exposure": .72, duration: .22, ease: "none" })
@@ -38,13 +52,21 @@ export default function CinematicIntro() {
         .to(".intro-name span:nth-child(1)", { xPercent: 1.5, duration: .24 }, "<")
         .to(".intro-name span:nth-child(2)", { xPercent: -1, duration: .24 }, "<")
         .to(".intro-name span:nth-child(3)", { scale: 1.16, duration: .28 }, "<")
-        .to(".intro-name", { scale: 1.35, yPercent: -7, autoAlpha: .94, duration: .28, ease: "power2.inOut" })
+        .to(".intro-name", { scale: () => intensity().mid, yPercent: -7, autoAlpha: .94, duration: .28, ease: "power2.inOut", invalidateOnRefresh: true })
         .to(".intro-glass-plane", { xPercent: -8, yPercent: -4, autoAlpha: .72, duration: .28, ease: "power2.inOut" }, "<")
-        .to(".intro-name", { scale: 2.8, yPercent: -12, duration: .42, ease: "power2.inOut" })
-        .to(".intro-glass-plane", { xPercent: -15, yPercent: -9, scale: 1.16, autoAlpha: .48, duration: .42, ease: "power2.inOut" }, "<")
+        .to(".intro-name", { scale: () => intensity().peak, yPercent: () => intensity().drift, duration: .42, ease: "power2.inOut", invalidateOnRefresh: true })
+        .to(".intro-glass-plane", { xPercent: () => intensity().glassX, yPercent: -9, scale: () => intensity().glassScale, autoAlpha: .48, duration: .42, ease: "power2.inOut", invalidateOnRefresh: true }, "<")
+        .to([".intro-micro", ".intro-footer"], { autoAlpha: 0, yPercent: 24, duration: .3, ease: "power1.in" }, "<+.05")
         .to(".intro-stage", { "--exposure": .2, duration: .23, ease: "power2.inOut" });
     }, scene);
-    return () => context.revert();
+    // Fonts / images change glyph bounds — recalc viewport-aware values.
+    let raf = 0;
+    const refresh = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => ScrollTrigger.refresh()); };
+    if (document.fonts?.ready) void document.fonts.ready.then(refresh).catch(() => undefined);
+    window.addEventListener("load", refresh);
+    window.addEventListener("orientationchange", refresh);
+    window.addEventListener("resize", refresh);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("load", refresh); window.removeEventListener("orientationchange", refresh); window.removeEventListener("resize", refresh); context.revert(); };
   }, []);
 
   return <section className="cinematic-intro" ref={sceneRef} aria-labelledby="intro-title">
