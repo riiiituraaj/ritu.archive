@@ -13,6 +13,14 @@ export default function CinematicIntro() {
     if (!scene || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
+    // Deterministic opening frame: never resume mid-scene where the scrub
+    // timeline and the load intro would fight over the same glass properties.
+    // But respect slow-network readers: if they already scrolled deep before
+    // hydration, never yank them back — land the intro instantly instead.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    const startY = window.scrollY;
+    const enteredDeep = startY > 300;
+    if (!enteredDeep) window.scrollTo(0, 0);
     // Viewport-aware intensity: same identity, full cinematic fly-through on
     // every screen (mid-transition zoom inside the clipped stage is the shot,
     // not a cropping bug — resting states stay within the viewport).
@@ -23,6 +31,9 @@ export default function CinematicIntro() {
       if (w <= 900) return { peak: 2.3, mid: 1.3, drift: -10, glassX: -10, glassScale: 1.1 };
       return { peak: 2.8, mid: 1.35, drift: -12, glassX: -15, glassScale: 1.16 };
     };
+    let raf = 0;
+    let introDone = false;
+    let introTl: gsap.core.Timeline | null = null;
     const context = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       const timeline = gsap.timeline({
@@ -43,6 +54,8 @@ export default function CinematicIntro() {
         .to(".intro-glass-plane", { autoAlpha: .92, xPercent: 0, yPercent: 0, rotateY: -2, rotateZ: -1, scale: 1, duration: 1.15, ease: "expo.out" }, "glassIn")
         .fromTo(".intro-glass-plane .panel-copy", { clipPath: "inset(0 0 100% 0)", autoAlpha: 0, y: 14 }, { clipPath: "inset(0 0 0% 0)", autoAlpha: 1, y: 0, duration: .95, ease: "expo.out" }, "glassIn+=0.22")
         .fromTo([".intro-micro", ".intro-footer"], { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2, ease: "power2.out" }, "glassIn");
+      intro.eventCallback("onComplete", () => { introDone = true; });
+      introTl = intro;
 
       timeline
         .to(".intro-stage", { "--exposure": .72, duration: .22, ease: "none" })
@@ -60,13 +73,16 @@ export default function CinematicIntro() {
         .to(".intro-stage", { "--exposure": .2, duration: .23, ease: "power2.inOut" });
     }, scene);
     // Fonts / images change glyph bounds — recalc viewport-aware values.
-    let raf = 0;
     const refresh = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => ScrollTrigger.refresh()); };
+    // Failsafe: the glass + copy must always land visible, even if the intro
+    // is ever interrupted (background tab, scroll collision, slow device).
+    const failsafe = window.setTimeout(() => { if (!introDone && introTl) introTl.progress(1); }, 9000);
+    if (enteredDeep) { const landed = introTl as gsap.core.Timeline | null; if (landed) { landed.progress(1); introDone = true; refresh(); } }
     if (document.fonts?.ready) void document.fonts.ready.then(refresh).catch(() => undefined);
     window.addEventListener("load", refresh);
     window.addEventListener("orientationchange", refresh);
     window.addEventListener("resize", refresh);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("load", refresh); window.removeEventListener("orientationchange", refresh); window.removeEventListener("resize", refresh); context.revert(); };
+    return () => { cancelAnimationFrame(raf); window.clearTimeout(failsafe); window.removeEventListener("load", refresh); window.removeEventListener("orientationchange", refresh); window.removeEventListener("resize", refresh); context.revert(); };
   }, []);
 
   return <section className="cinematic-intro" ref={sceneRef} aria-labelledby="intro-title">
