@@ -1,7 +1,6 @@
-# Ritu Raj Bora — Cinematic Portfolio
+# Ritu Raj Bora — Portfolio
 
-Next.js portfolio for Ritu Raj Bora, built around a restrained cinematic editorial system. Content is grounded in the supplied résumé; project case-study outcomes are intentionally not invented.
-
+Next.js portfolio for Ritu Raj Bora, built around a restrained cinematic editorial system.
 ## Run locally
 
 ```bash
@@ -17,4 +16,3 @@ Build for production with `npm run build`, then serve with `npm run start`.
 - `app/globals.css` contains the responsive visual system, motion tokens, and reduced-motion fallback.
 - `lib/data.ts` contains verified experience, awards, roles, and languages/skills.
 
-Quick View preference is stored in local storage. No custom cursor or external media dependency is required.
